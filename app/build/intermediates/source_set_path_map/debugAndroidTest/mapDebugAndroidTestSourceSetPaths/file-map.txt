@@ -1,0 +1,6 @@
+com.example.gpsfetch.test.app-tracing-1.2.0-0 C:\Users\yaswa\.gradle\caches\8.10.2\transforms\06540799a72bd3b7cd91605dfc4b6f1c\transformed\tracing-1.2.0\res
+com.example.gpsfetch.test.app-core-1.6.1-1 C:\Users\yaswa\.gradle\caches\8.10.2\transforms\a16481f4ff7a52a2377102103bd50e35\transformed\core-1.6.1\res
+com.example.gpsfetch.test.app-androidTest-2 C:\Users\yaswa\Music\KS\AndroidGpsFetch\app\build\generated\res\resValues\androidTest\debug
+com.example.gpsfetch.test.app-mergeDebugAndroidTestResources-3 C:\Users\yaswa\Music\KS\AndroidGpsFetch\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.gpsfetch.test.app-mergeDebugAndroidTestResources-4 C:\Users\yaswa\Music\KS\AndroidGpsFetch\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.gpsfetch.test.app-debugAndroidTest-5 C:\Users\yaswa\Music\KS\AndroidGpsFetch\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

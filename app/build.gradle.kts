@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -32,18 +33,22 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
-
 dependencies {
 
     implementation(libs.appcompat)
+    implementation(libs.camera.x.core)
     implementation(libs.material)
-    implementation(libs.constraintlayout)
+    implementation(libs.constraintlayout) // ✅ Correct
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.play.services.location)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.play.services.location)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
