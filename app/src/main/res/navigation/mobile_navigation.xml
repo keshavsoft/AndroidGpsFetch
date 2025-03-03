@@ -12,22 +12,22 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.gpsfetch.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.gpsfetch.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
+    <!-- Camera Fragment -->
     <fragment
-        android:id="@+id/nav_gps"
-        android:name="com.example.gpsfetch.ui.gps.GpsFragment"
-        android:label="@string/menu_gps"
-        tools:layout="@layout/fragment_gps" />
-
-    <fragment
-        android:id="@+id/nav_cam"
-        android:name="com.example.gpsfetch.ui.camera.BlankFragment"
-        android:label="@string/menu_Camera"
-        tools:layout="@layout/fragment_blank" />
-
+        android:id="@+id/navigation_camera"
+        android:name="com.example.gpsfetch.ui.camera.CameraFragment"
+        android:label="Camera"
+        tools:layout="@layout/fragment_camera" />
 
 </navigation>

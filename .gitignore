@@ -1,0 +1,14 @@
+# Ignore Gradle files
+.gradle/
+**/*.bin
+**/*.lock
+
+# Ignore local configuration files
+local.properties
+
+# Ignore IDE-specific files
+.idea/
+*.iml
+
+# Ignore build output
+app/build/
