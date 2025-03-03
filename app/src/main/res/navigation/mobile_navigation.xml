@@ -23,11 +23,19 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
-    <!-- Camera Fragment -->
     <fragment
-        android:id="@+id/navigation_camera"
+        android:id="@+id/navigation_gps_camera"
+        android:name="com.example.gpsfetch.ui.camera.GPSCameraFragment"
+        android:label="GPS and Camera"
+        tools:layout="@layout/fragment_camera" />
+
+    <fragment
+        android:id="@+id/navigation_camera_kt"
         android:name="com.example.gpsfetch.ui.camera.CameraFragment"
         android:label="Camera"
         tools:layout="@layout/fragment_camera" />
+
+
+
 
 </navigation>

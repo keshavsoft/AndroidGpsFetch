@@ -3,6 +3,7 @@ package com.example.gpsfetch;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -31,20 +32,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
 
-        DrawerLayout drawer = binding.drawerLayout;
+        binding.appBarMain.fab.setOnClickListener(view ->
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).setAnchorView(R.id.fab).show());
+
+        DrawerLayout drawer = binding.drawerLayout;  // ✅ Fixed DrawerLayout
         NavigationView navigationView = binding.navView;
 
+        // Define Fragments in Sidebar
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.navigation_camera) // Added navigation_camera
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.navigation_gps_camera, R.id.navigation_camera_kt)
                 .setOpenableLayout(drawer)
                 .build();
 

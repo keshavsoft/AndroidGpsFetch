@@ -9,9 +9,16 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/navigation_camera"
+            android:id="@+id/navigation_gps_camera"
+            android:icon="@drawable/baseline_camera_24"
+            android:title="GPS and Camera" />
+
+        <item
+            android:id="@+id/navigation_camera_kt"
             android:icon="@drawable/baseline_camera_24"
             android:title="Camera" />
+
+
 
         <item
             android:id="@+id/nav_gallery"
