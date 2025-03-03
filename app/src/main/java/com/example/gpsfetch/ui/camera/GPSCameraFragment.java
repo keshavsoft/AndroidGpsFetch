@@ -33,6 +33,9 @@ import com.example.gpsfetch.ui.viewmodel.ImageViewModelFactory;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class GPSCameraFragment extends Fragment {
@@ -116,7 +119,8 @@ public class GPSCameraFragment extends Fragment {
                     currentLatitude = location.getLatitude();
                     currentLongitude = location.getLongitude();
                     txtLocation.setText("Latitude: " + currentLatitude + "\nLongitude: " + currentLongitude);
-                    saveImageToDatabase("Captured_Image", currentLatitude, currentLongitude);
+                    String imagePath = saveImageToInternalStorage(capturedImage);
+                    saveImageToDatabase(imagePath, currentLatitude, currentLongitude);
                 } else {
                     txtLocation.setText("Location Not Found");
                 }
@@ -124,6 +128,17 @@ public class GPSCameraFragment extends Fragment {
         } else {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 102);
         }
+    }
+
+    private String saveImageToInternalStorage(Bitmap bitmap) {
+        File directory = requireContext().getFilesDir();
+        File imageFile = new File(directory, "IMG_" + System.currentTimeMillis() + ".jpg");
+        try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageFile.getAbsolutePath();
     }
 
     private void saveImageToDatabase(String imagePath, double latitude, double longitude) {
