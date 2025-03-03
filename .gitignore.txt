@@ -1,0 +1,70 @@
+# Gradle files
+.gradle/
+**/build/
+**/out/
+!gradle/wrapper/gradle-wrapper.jar
+.gradle/local.properties
+
+# Android Studio files
+.idea/
+.navigation/
+captures/
+*.iml
+
+# Keystore files
+*.jks
+*.keystore
+
+# Local configuration
+local.properties
+*.log
+*.gz
+
+# IntelliJ IDEA workspace
+.idea/
+*.iws
+*.ipr
+*.iwt
+
+# NDK, SDK, and build cache
+.cxx/
+.externalNativeBuild/
+local.properties
+*.so
+*.o
+*.obj
+*.a
+*.lib
+
+# Dependency caches
+**/.cxx/
+**/.gradle/
+**/local.properties
+
+# Miscellaneous
+.DS_Store
+*.swp
+*.swo
+*.swn
+Thumbs.db
+
+# Exclude generated files
+*.class
+*.dex
+*.apk
+*.aar
+*.jar
+
+# Flutter specific (if applicable)
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+.packages
+pubspec.lock
+.dart_tool/
+build/
+
+# Exclude all test-related reports
+**/test-results/
+**/outputs/
+**/reports/
