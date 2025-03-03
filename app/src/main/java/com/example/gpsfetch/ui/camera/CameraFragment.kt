@@ -33,7 +33,7 @@ class CameraFragment : Fragment() {
             }
         }
 
-    // Camera Activity Result Launcher
+    // Camera Launcher
     private val cameraLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == android.app.Activity.RESULT_OK) {
@@ -46,7 +46,7 @@ class CameraFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_camera, container, false)
+        val view = inflater.inflate(R.layout.fragment_camera_kt, container, false) // Use New Layout
         imageViewPhoto = view.findViewById(R.id.imageViewPhoto)
         btnTakePhoto = view.findViewById(R.id.btnTakePhoto)
 
@@ -63,6 +63,7 @@ class CameraFragment : Fragment() {
         }
         return view
     }
+
 
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -37,12 +38,15 @@ android {
         jvmTarget = "11"
     }
 }
+
 dependencies {
+    implementation("androidx.room:room-runtime:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0") // No more unresolved reference
 
     implementation(libs.appcompat)
     implementation(libs.camera.x.core)
     implementation(libs.material)
-    implementation(libs.constraintlayout) // ✅ Correct
+    implementation(libs.constraintlayout)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.play.services.location)
