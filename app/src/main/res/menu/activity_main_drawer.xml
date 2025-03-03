@@ -9,16 +9,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
+            android:id="@+id/navigation_camera"
+            android:icon="@drawable/baseline_camera_24"
+            android:title="Camera" />
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_gallery" />
+        <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/nav_gps"
-            android:icon="@drawable/ic_menu_gps"
-            android:title="@string/menu_gps" />
-        <item
-            android:id="@+id/nav_cam"
-            android:icon="@drawable/ic_menu_gps"
-            android:title="@string/menu_Camera" />
     </group>
 </menu>
