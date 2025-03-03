@@ -27,32 +27,44 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         viewBinding = true
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
-    implementation("androidx.room:room-runtime:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0") // No more unresolved reference
+    // Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1") // Coroutine Support
 
+    // AndroidX Core Libraries
+    implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.camera.x.core)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
+
+    // Lifecycle Components
+    implementation(libs.lifecycle.viewmodel.ktx.v262)
+
+    // Google Location Services
     implementation(libs.play.services.location)
+
+    // Navigation Components
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.core.ktx)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

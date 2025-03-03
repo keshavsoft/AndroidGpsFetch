@@ -15,18 +15,40 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpsfetch.R;
+import com.example.gpsfetch.data.ImageDatabase;
+import com.example.gpsfetch.data.entity.ImageEntity;
+import com.example.gpsfetch.data.repository.ImageRepository;
+import com.example.gpsfetch.ui.adapter.ImageAdapter;
+import com.example.gpsfetch.ui.viewmodel.ImageViewModel;
+import com.example.gpsfetch.ui.viewmodel.ImageViewModelFactory;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.List;
+
 public class GPSCameraFragment extends Fragment {
+
     private ImageView imageViewPhoto;
     private TextView txtLocation;
     private Button btnTakePhoto;
+    private RecyclerView recyclerView;
+    private ImageAdapter imageAdapter;
+
+    private ImageViewModel imageViewModel;
     private FusedLocationProviderClient fusedLocationClient;
+
+    private Bitmap capturedImage;
+    private double currentLatitude;
+    private double currentLongitude;
 
     private final ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -34,6 +56,7 @@ public class GPSCameraFragment extends Fragment {
                     if (result.getData() != null && result.getData().getExtras() != null) {
                         Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
                         if (bitmap != null) {
+                            capturedImage = bitmap; // Store Bitmap globally
                             imageViewPhoto.setImageBitmap(bitmap);
                             getCurrentLocation();
                         }
@@ -48,14 +71,33 @@ public class GPSCameraFragment extends Fragment {
         imageViewPhoto = view.findViewById(R.id.imageViewPhoto);
         txtLocation = view.findViewById(R.id.txtLocation);
         btnTakePhoto = view.findViewById(R.id.btnTakePhoto);
+        recyclerView = view.findViewById(R.id.recyclerView);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        // Initialize ViewModel
+        ImageDatabase db = ImageDatabase.Companion.getDatabase(requireContext());
+        ImageRepository repository = new ImageRepository(db.imageDao());
+        ImageViewModelFactory factory = new ImageViewModelFactory(repository);
+        imageViewModel = new ViewModelProvider(this, factory).get(ImageViewModel.class);
 
         btnTakePhoto.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
             } else {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
+            }
+        });
+
+        // Set up RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        imageAdapter = new ImageAdapter(requireContext());
+        recyclerView.setAdapter(imageAdapter);
+
+        imageViewModel.getAllImages().observe(getViewLifecycleOwner(), new Observer<List<ImageEntity>>() {
+            @Override
+            public void onChanged(List<ImageEntity> images) {
+                imageAdapter.setImageList(images);
             }
         });
 
@@ -70,23 +112,27 @@ public class GPSCameraFragment extends Fragment {
     private void getCurrentLocation() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
-                requireActivity().runOnUiThread(() -> {
-                    if (location != null) {
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        txtLocation.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
-                    } else {
-                        txtLocation.setText("Location Not Found");
-                    }
-                });
+                if (location != null) {
+                    currentLatitude = location.getLatitude();
+                    currentLongitude = location.getLongitude();
+                    txtLocation.setText("Latitude: " + currentLatitude + "\nLongitude: " + currentLongitude);
+                    saveImageToDatabase("Captured_Image", currentLatitude, currentLongitude);
+                } else {
+                    txtLocation.setText("Location Not Found");
+                }
             });
         } else {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 102);
         }
     }
 
+    private void saveImageToDatabase(String imagePath, double latitude, double longitude) {
+        ImageEntity imageEntity = new ImageEntity(0, imagePath, latitude, longitude);
+        imageViewModel.insertImage(imageEntity);
+    }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 101 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openCamera();

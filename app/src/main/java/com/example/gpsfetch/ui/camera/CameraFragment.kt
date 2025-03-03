@@ -37,8 +37,10 @@ class CameraFragment : Fragment() {
     private val cameraLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == android.app.Activity.RESULT_OK) {
-                val bitmap = result.data?.extras?.get("data") as Bitmap
-                imageViewPhoto.setImageBitmap(bitmap)
+                val bitmap = result.data?.extras?.getParcelable<Bitmap>("data")
+                bitmap?.let {
+                    imageViewPhoto.setImageBitmap(it)
+                }
             }
         }
 
@@ -46,7 +48,7 @@ class CameraFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_camera_kt, container, false) // Use New Layout
+        val view = inflater.inflate(R.layout.fragment_camera_kt, container, false)
         imageViewPhoto = view.findViewById(R.id.imageViewPhoto)
         btnTakePhoto = view.findViewById(R.id.btnTakePhoto)
 
@@ -63,7 +65,6 @@ class CameraFragment : Fragment() {
         }
         return view
     }
-
 
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
