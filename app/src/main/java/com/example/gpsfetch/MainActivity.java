@@ -18,8 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.gpsfetch.databinding.ActivityMainBinding;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -43,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
         // Define Fragments in Sidebar
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.navigation_gps_camera, R.id.navigation_camera_kt)
+                R.id.navigation_gps_camera, R.id.navigation_camera_kt, R.id.nav_fetch) // Added nav_fetch for API Fragment
                 .setOpenableLayout(drawer)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(this); // Set Listener
     }
 
     @Override
@@ -72,5 +72,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+        if (handled) {
+            DrawerLayout drawer = binding.drawerLayout;
+            drawer.closeDrawer(binding.navView);
+        }
+        return handled;
     }
 }
