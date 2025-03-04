@@ -35,6 +35,11 @@
         android:label="Camera"
         tools:layout="@layout/fragment_camera" />
 
+    <fragment
+        android:id="@+id/nav_fetch"
+        android:name="com.example.gpsfetch.ui.fetch.FetchFragment"
+        android:label="Fetch API"
+        tools:layout="@layout/fragment_fetch"/>
 
 
 

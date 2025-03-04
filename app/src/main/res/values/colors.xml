@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPressed">#FF0000</color> <!-- Red when pressed -->
+    <color name="colorFocused">#00FF00</color> <!-- Green when focused -->
+    <color name="colorDefault">#0000FF</color> <!-- Blue as default -->
 </resources>

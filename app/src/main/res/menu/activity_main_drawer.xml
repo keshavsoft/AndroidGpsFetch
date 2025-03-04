@@ -18,6 +18,12 @@
             android:icon="@drawable/baseline_camera_24"
             android:title="Camera" />
 
+        <item
+            android:id="@+id/nav_fetch"
+            android:icon="@drawable/ic_api"
+            android:title="Fetch API" />
+
+
 
 
         <item
