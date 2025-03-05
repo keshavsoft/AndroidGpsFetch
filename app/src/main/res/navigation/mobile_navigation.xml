@@ -41,6 +41,11 @@
         android:label="Fetch API"
         tools:layout="@layout/fragment_fetch"/>
 
+    <fragment
+        android:id="@+id/nav_fetch_button"
+        android:name="com.example.gpsfetch.ui.fetch.FetchButtonFragment"
+        android:label="Fetch API Data"
+        tools:layout="@layout/fragment_fetch_button" />
 
 
 </navigation>
