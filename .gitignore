@@ -3,6 +3,7 @@
 **/*.bin
 **/*.lock
 
+
 # Ignore local configuration files
 local.properties
 
