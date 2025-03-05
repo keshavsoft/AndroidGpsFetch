@@ -23,6 +23,10 @@
             android:icon="@drawable/ic_api"
             android:title="Fetch API" />
 
+        <item
+            android:id="@+id/nav_fetch_button"
+            android:icon="@drawable/ic_api"
+            android:title="Fetch Data By Button" />
 
 
 
