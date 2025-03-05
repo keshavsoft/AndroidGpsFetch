@@ -79,18 +79,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        int id = item.getItemId();
-        if (id == R.id.nav_fetch) {
-            navController.navigate(R.id.nav_fetch); // Old UI
-        } else if (id == R.id.nav_fetch_button
-        ) {
-            navController.navigate(R.id.nav_fetch_button); // New UI with Button Click
+
+        boolean handled = NavigationUI.onNavDestinationSelected(item, navController); // 🔥 This line is very very important
+
+        if (!handled) { // If NavigationUI doesn't handle custom cases
+            int id = item.getItemId();
+
+            if (id == R.id.nav_fetch_button) {
+                navController.navigate(R.id.nav_fetch_button); // ✅ New UI
+            }
         }
-        boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
-        if (handled) {
-            DrawerLayout drawer = binding.drawerLayout;
-            drawer.closeDrawer(binding.navView);
-        }
-        return handled;
+
+        DrawerLayout drawer = binding.drawerLayout;
+        drawer.closeDrawer(binding.navView);
+        return true; // Stop double navigation
     }
+
 }
